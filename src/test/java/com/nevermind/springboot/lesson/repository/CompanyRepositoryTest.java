@@ -1,5 +1,6 @@
 package com.nevermind.springboot.lesson.repository;
 
+import com.nevermind.springboot.lesson.IntegrationTestBase;
 import com.nevermind.springboot.lesson.entity.CompanyEntity;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,10 +14,8 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@ActiveProfiles("test")
-@SpringBootTest
-@Transactional
-class CompanyRepositoryTest {
+
+class CompanyRepositoryTest extends IntegrationTestBase {
 
     private static final Integer GOOGLE_ID = 1;
 
