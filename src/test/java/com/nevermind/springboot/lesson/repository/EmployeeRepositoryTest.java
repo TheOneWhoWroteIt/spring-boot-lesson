@@ -3,6 +3,7 @@ package com.nevermind.springboot.lesson.repository;
 import com.nevermind.springboot.lesson.IntegrationTestBase;
 import com.nevermind.springboot.lesson.entity.EmployeeEntity;
 import com.nevermind.springboot.lesson.projection.EmployeeNameView;
+import com.nevermind.springboot.lesson.projection.EmployeeNativeView;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.collection.IsCollectionWithSize;
 import org.junit.jupiter.api.Test;
@@ -44,6 +45,12 @@ class EmployeeRepositoryTest extends IntegrationTestBase {
     @Test
     void testFindAllBySalaryGreaterThan(){
         List<EmployeeNameView> employees = employeeRepository.findAllBySalaryGreaterThan(800);
+        assertThat(employees, hasSize(2));
+    }
+
+    @Test
+    void testFindAllBySalaryGreaterThanNative(){
+        List<EmployeeNativeView> employees = employeeRepository.findAllBySalaryGreaterThanNative(800);
         assertThat(employees, hasSize(2));
     }
 

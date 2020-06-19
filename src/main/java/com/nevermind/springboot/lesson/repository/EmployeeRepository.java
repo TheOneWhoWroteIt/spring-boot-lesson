@@ -22,7 +22,7 @@ public interface EmployeeRepository extends JpaRepository<EmployeeEntity, Intege
 
     @Query(value = "select " +
             "e.id as id, " +
-            "e.first_name || e.last_name as fillName " +
+            "e.first_name || e.last_name as fullName " +
             "from employee e " +
             "where e.salary > :salary", nativeQuery = true)
     List<EmployeeNativeView> findAllBySalaryGreaterThanNative(@Param("salary") Integer salary);
