@@ -32,6 +32,7 @@ class EmployeeRepositoryTest extends IntegrationTestBase {
         assertTrue(tim.isPresent());
     }
 
+    @Test
     void testFindByFirstNameAndSalary(){
         List<EmployeeEntity> tim = employeeRepository.findByFirstNameAndSalary("Tim", 1000);
         MatcherAssert.assertThat(tim, IsCollectionWithSize.hasSize(1));

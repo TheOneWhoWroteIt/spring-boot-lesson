@@ -1,6 +1,7 @@
 package com.nevermind.springboot.lesson.repository;
 
 import com.nevermind.springboot.lesson.entity.EmployeeEntity;
+import com.nevermind.springboot.lesson.projection.EmployeeNameView;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -13,4 +14,6 @@ public interface EmployeeRepository extends JpaRepository<EmployeeEntity, Intege
     Optional<EmployeeEntity> findByFirstNameContaining(String firstName);
 
     List<EmployeeEntity> findByFirstNameAndSalary(String firstName, Integer salary);
+
+    List<EmployeeNameView> findAllBySalaryGreaterThan(Integer salary);
 }
