@@ -3,12 +3,17 @@ package com.nevermind.springboot.lesson.repository;
 import com.nevermind.springboot.lesson.IntegrationTestBase;
 import com.nevermind.springboot.lesson.dto.EmployeeFilter;
 import com.nevermind.springboot.lesson.entity.EmployeeEntity;
+import com.nevermind.springboot.lesson.entity.QEmployeeEntity;
 import com.nevermind.springboot.lesson.projection.EmployeeNameView;
 import com.nevermind.springboot.lesson.projection.EmployeeNativeView;
+import com.querydsl.core.types.dsl.BooleanExpression;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.collection.IsCollectionWithSize;
+import org.hibernate.query.criteria.internal.predicate.BooleanExpressionPredicate;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 import java.util.Optional;
@@ -63,6 +68,16 @@ class EmployeeRepositoryTest extends IntegrationTestBase {
 
         List<EmployeeEntity> employees = employeeRepository.findByFilter(employeeFilter);
         assertThat(employees, hasSize(1));
+
+    }
+
+    @Test
+    void testQuerydslPredicate(){
+        BooleanExpression predicate = QEmployeeEntity.employeeEntity.firstName.containsIgnoreCase("tIm")
+                .and(QEmployeeEntity.employeeEntity.salary.goe(1000));
+
+        Page<EmployeeEntity> page = employeeRepository.findAll(predicate, Pageable.unpaged());
+        assertThat(page.getContent(), hasSize(1));
 
     }
 
