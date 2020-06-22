@@ -1,6 +1,7 @@
 package com.nevermind.springboot.lesson.repository;
 
 import com.nevermind.springboot.lesson.IntegrationTestBase;
+import com.nevermind.springboot.lesson.dto.EmployeeFilter;
 import com.nevermind.springboot.lesson.entity.EmployeeEntity;
 import com.nevermind.springboot.lesson.projection.EmployeeNameView;
 import com.nevermind.springboot.lesson.projection.EmployeeNativeView;
@@ -52,6 +53,17 @@ class EmployeeRepositoryTest extends IntegrationTestBase {
     void testFindAllBySalaryGreaterThanNative(){
         List<EmployeeNativeView> employees = employeeRepository.findAllBySalaryGreaterThanNative(800);
         assertThat(employees, hasSize(2));
+    }
+
+    @Test
+    void testFindByCustomQuery(){
+        EmployeeFilter employeeFilter = EmployeeFilter.builder()
+                .firstName("tiM")
+                .build();
+
+        List<EmployeeEntity> employees = employeeRepository.findByFilter(employeeFilter);
+        assertThat(employees, hasSize(1));
+
     }
 
 
