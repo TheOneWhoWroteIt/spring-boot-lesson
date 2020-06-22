@@ -14,5 +14,5 @@ public class EmployeeFilter {
     private String firstName;
     private String lastName;
     private Integer Salary;
-    
+
 }
