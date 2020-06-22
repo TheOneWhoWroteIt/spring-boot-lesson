@@ -6,6 +6,8 @@ import com.nevermind.springboot.lesson.entity.EmployeeEntity;
 import com.nevermind.springboot.lesson.entity.QEmployeeEntity;
 import com.nevermind.springboot.lesson.projection.EmployeeNameView;
 import com.nevermind.springboot.lesson.projection.EmployeeNativeView;
+import com.nevermind.springboot.lesson.util.QPredicates;
+import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.collection.IsCollectionWithSize;
@@ -78,6 +80,25 @@ class EmployeeRepositoryTest extends IntegrationTestBase {
 
         Page<EmployeeEntity> page = employeeRepository.findAll(predicate, Pageable.unpaged());
         assertThat(page.getContent(), hasSize(1));
+
+    }
+
+    @Test
+    void testQPredicates(){
+        EmployeeFilter employeeFilter = EmployeeFilter.builder()
+                .firstName("tiM")
+                .Salary(1000)
+                .build();
+
+        Predicate predicate = QPredicates.builder()
+                .add(employeeFilter.getFirstName(), QEmployeeEntity.employeeEntity.firstName::containsIgnoreCase)
+                .add(employeeFilter.getLastName(), QEmployeeEntity.employeeEntity.lastName::containsIgnoreCase)
+                .add(employeeFilter.getSalary(), QEmployeeEntity.employeeEntity.salary::goe)
+                .buildAnd();
+
+        Iterable<EmployeeEntity> result = employeeRepository.findAll(predicate);
+
+        assertTrue(result.iterator().hasNext());
 
     }
 
