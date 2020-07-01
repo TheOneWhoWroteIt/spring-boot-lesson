@@ -29,6 +29,7 @@ dependencies {
     compile 'org.postgresql:postgresql'
     compile 'org.projectlombok:lombok'
     compile 'com.querydsl:querydsl-jpa'
+    compile 'org.flywaydb:flyway-core'
 
 
     testCompile 'org.springframework.boot:spring-boot-starter-test'
