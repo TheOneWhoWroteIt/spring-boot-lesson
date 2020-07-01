@@ -5,6 +5,8 @@ plugins {
     id "com.ewerk.gradle.plugins.querydsl" version "1.0.10"
 }
 
+apply from: './versions.gradle'
+
 sourceSets{
     main{
         java{
@@ -33,6 +35,8 @@ dependencies {
 
 
     testCompile 'org.springframework.boot:spring-boot-starter-test'
+    testCompile "org.testcontainers:postgresql:${versions.postgresContainer}"
+
 
 
 
